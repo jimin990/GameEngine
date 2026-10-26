@@ -3,6 +3,21 @@
 #include <utility>
 #include <iostream>
 
+bool Engine::Initialize(HINSTANCE instance, int showCommand)
+{
+	if(!window.Create(instance, showCommand))
+	{
+		return false;
+	}
+
+	if (FAILED(renderer.Initialize(window.GetHandle())))
+	{
+		return false;
+	}
+
+	return true;
+}
+
 void Engine::SetScene(std::unique_ptr<Scene> scene)
 {
 	currentScene = std::move(scene);
@@ -22,18 +37,14 @@ void Engine::Run()
 
 		float deltaTime = std::chrono::duration<float>(currentTime - prevTime).count();
 
-		totalTime += deltaTime;
-
 		prevTime = currentTime;
 
-		currentScene->Update(deltaTime);
-
-		//std::cout << "Time : " << totalTime << "\n";
-
-		if (totalTime >= 5.0f)
+		if (!window.ProcessMessages())
 		{
 			Stop();
 		}
+
+		currentScene->Update(deltaTime);
 	}
 }
 

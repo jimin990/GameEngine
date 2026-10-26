@@ -2,11 +2,16 @@
 
 #include <memory>
 #include <chrono>
+#include "Window.h"
+#include "Renderer.h"
 
 class Scene;
 
 class Engine
 {
+public:
+	bool Initialize(HINSTANCE instance, int showCommand);
+
 public:
 	void SetScene(std::unique_ptr<Scene> scene);
 
@@ -19,9 +24,9 @@ private:
 
 	bool isRunning = false;
 
-	/*
-	* float 형으로 하니까. 작은 값의 경우는 반올림을 처리하는지 종료가 안됨
-	*/
-	double totalTime = 0.0f;
+private:
+	Window window;
+
+	Renderer renderer;
 };
 

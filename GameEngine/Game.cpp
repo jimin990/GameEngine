@@ -13,20 +13,10 @@ public:
 
 	virtual void Update(float deltaTime) override
 	{
-		//std::cout << "Player is update :" << deltaTime << "\n";
 
-		elapsedTime += deltaTime;
-
-		/*if (elapsedTime >= 1 && !printed)
-		{
-			std::cout << "1 time passed!\n";
-
-			printed = true;
-		}*/
 	};
 
 private:
-	float elapsedTime = 0.0f;
 
 	bool printed = false;
 };
@@ -34,6 +24,13 @@ private:
 int main()
 {
 	Engine engine;
+
+	HINSTANCE instance = GetModuleHandleW(nullptr);
+
+	if (engine.Initialize(instance, 1) == -1)
+	{
+		std::cout << "failed show window";
+	}
 
 	auto scene = std::make_unique<Scene>();
 
