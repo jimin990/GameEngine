@@ -44,6 +44,22 @@ void Engine::Run()
 			Stop();
 		}
 
+		const float backgroundColor[4] =
+		{
+			0.1f, 0.2f, 0.5f, 1.0f
+		};
+
+		/*
+		* 백 버퍼를 배경색으로 채움
+		* 지정한 Render Target을 한 가지 색으로 초기화
+		*/
+		renderer.context->ClearRenderTargetView(
+			renderer.renderTargetView.Get(),
+			backgroundColor
+		);
+
+		renderer.swapChain->Present(1, 0);
+
 		currentScene->Update(deltaTime);
 	}
 }

@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Engine/Core/Engine.h"
+#include "Engine/Components/Component.h"
 
 #include <iostream>
 
@@ -17,8 +18,9 @@ public:
 	};
 
 private:
+	//RenderComponent renderComponent;
 
-	bool printed = false;
+	//bool printed = false;
 };
 
 int main()
@@ -34,7 +36,11 @@ int main()
 
 	auto scene = std::make_unique<Scene>();
 
-	scene->AddObject(std::make_unique<Player>());
+	auto player = std::make_unique<Player>();
+
+	player->GetTransform().Position = DirectX::XMFLOAT3(0,0,0);
+
+	scene->AddObject(std::move(player));
 
 	engine.SetScene(std::move(scene));
 
